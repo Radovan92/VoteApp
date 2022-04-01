@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      title: 'Material App',
+      title: 'Material Application',
       home: HomePage(),
     );
   }
