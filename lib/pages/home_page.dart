@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:vote_app/constants.dart';
+import 'package:vote_app/pages/election_info.dart';
+import 'package:vote_app/services/functions.dart';
 import 'package:web3dart/web3dart.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,7 +49,34 @@ class _HomePageState extends State<HomePage> {
               height: 5,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (controller.text.isNotEmpty) {
+                  await startElection(controller.text, ethClient!).then(
+                      (value) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ElectionInfo(
+                                  ethClient: ethClient!,
+                                  electionName: controller.text))));
+                } else {
+                  print('eeeeeeeeeeeeeeee');
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Election name is required!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Ok'),
+                            ),
+                          ],
+                        );
+                      });
+                }
+              },
               child: Text('Start election'),
             ),
           ],

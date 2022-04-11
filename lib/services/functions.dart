@@ -17,9 +17,12 @@ Future<String> callFunction(String functionName, List<dynamic> args,
   DeployedContract contract = await loadContract();
   final ethFunction = contract.function(functionName);
   final result = ethClient.sendTransaction(
-      credentials,
-      Transaction.callContract(
-          contract: contract, function: ethFunction, parameters: args));
+    credentials,
+    Transaction.callContract(
+        contract: contract, function: ethFunction, parameters: args),
+    chainId: null,
+    fetchChainIdFromNetworkId: true,
+  );
   return result;
 }
 
@@ -60,4 +63,11 @@ Future<List<dynamic>> ask(
       ethClient.call(contract: contract, function: ethFunction, params: args);
 
   return result;
+}
+
+Future<String> vote(int candidateIndex, Web3Client ethClient) async {
+  var response = await callFunction(
+      'vote', [BigInt.from(candidateIndex)], ethClient, testAccountKey);
+  print('You vote successfully');
+  return response;
 }
