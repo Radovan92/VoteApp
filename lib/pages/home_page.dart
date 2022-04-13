@@ -30,10 +30,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Start election'),
+        
+        title: Text('Izbori 2022'),
         centerTitle: true,
       ),
-      body: Container(
+      body: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage('assets/skupstina.jpg'), fit: BoxFit.cover),
+          ),
+          child: Center(child: Container(
         padding: EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,6 +49,7 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(
                 filled: true,
                 hintText: 'Enter election name',
+                
               ),
             ),
             SizedBox(
@@ -84,7 +91,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
+      ),),
+        ),
+      ],)
     );
   }
 }

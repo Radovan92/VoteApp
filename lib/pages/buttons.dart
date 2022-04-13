@@ -15,6 +15,11 @@ class Buttons extends StatefulWidget {
 class _ButtonsState extends State<Buttons> {
   late String valueText;
 
+  void showSnackBar(){
+    final snackBar = SnackBar(content: Text('MINING IN PROGRESS, be patient! ( after few seconds press the reload button and you candidate will be added )'), );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   Future<dynamic> dialog(String name) {
     return showDialog(
         context: context,
@@ -33,6 +38,10 @@ class _ButtonsState extends State<Buttons> {
                   onPressed: () async {
                     addCanddiate(valueText.toString(), widget.ethClient);
                     Navigator.pop(context);
+                    showSnackBar();
+                    setState(() {
+                      
+                    });
                   },
                   child: Text('Ok'))
             ],
@@ -59,14 +68,7 @@ class _ButtonsState extends State<Buttons> {
           ),
         ),
         SizedBox(height: 20),
-        SizedBox(
-          height: 50,
-          width: 160,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text('Glasaj'),
-          ),
-        ),
+        
       ]),
     );
   }

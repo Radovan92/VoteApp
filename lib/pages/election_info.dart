@@ -102,6 +102,8 @@ class _ElectionInfoState extends State<ElectionInfo> {
             Buttons(
               ethClient: widget.ethClient,
             ),
+            SizedBox(height: 20,),
+            Text('Spisak kandidata za parlament:', style: TextStyle(fontSize: 10),)
           ],
         ),
       ),
