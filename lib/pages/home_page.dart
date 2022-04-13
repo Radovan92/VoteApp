@@ -52,12 +52,15 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 if (controller.text.isNotEmpty) {
                   await startElection(controller.text, ethClient!).then(
-                      (value) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ElectionInfo(
-                                  ethClient: ethClient!,
-                                  electionName: controller.text))));
+                    (value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ElectionInfo(
+                            ethClient: ethClient!,
+                            electionName: controller.text),
+                      ),
+                    ),
+                  );
                 } else {
                   print('eeeeeeeeeeeeeeee');
                   showDialog(
