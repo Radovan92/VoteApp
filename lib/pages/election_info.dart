@@ -93,7 +93,10 @@ class _ElectionInfoState extends State<ElectionInfo> {
                         );
                       }
                       if (snapshot.hasData) {
-                        return Text(snapshot.data![0].toString());
+                        return Text(
+                          snapshot.data![0].toString(),
+                          style: TextStyle(fontSize: 20),
+                        );
                       }
                       return Text(
                         '0',
