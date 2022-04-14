@@ -15,8 +15,11 @@ class Buttons extends StatefulWidget {
 class _ButtonsState extends State<Buttons> {
   late String valueText;
 
-  void showSnackBar(){
-    final snackBar = SnackBar(content: Text('MINING IN PROGRESS, be patient! ( after few seconds press the reload button and you candidate will be added )'), );
+  void showSnackBar() {
+    final snackBar = SnackBar(
+      content: Text(
+          'MINING IN PROGRESS, be patient! ( after few seconds press the reload button and you candidate will be added )'),
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
@@ -39,9 +42,7 @@ class _ButtonsState extends State<Buttons> {
                     addCanddiate(valueText.toString(), widget.ethClient);
                     Navigator.pop(context);
                     showSnackBar();
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   },
                   child: Text('Ok'))
             ],
@@ -57,7 +58,7 @@ class _ButtonsState extends State<Buttons> {
       ),
       child: Column(children: [
         SizedBox(
-          height: 50,
+          height: 30,
           width: 160,
           child: ElevatedButton(
             onPressed: () async {
@@ -68,7 +69,6 @@ class _ButtonsState extends State<Buttons> {
           ),
         ),
         SizedBox(height: 20),
-        
       ]),
     );
   }

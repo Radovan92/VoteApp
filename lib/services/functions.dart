@@ -76,3 +76,9 @@ Future<String> vote(int candidateIndex, Web3Client ethClient) async {
   print('You vote successfully');
   return response;
 }
+
+Future<List> candidateInfo(int index, Web3Client ethClient) async {
+  List<dynamic> result =
+      await ask('candidateInfo', [BigInt.from(index)], ethClient);
+  return result;
+}

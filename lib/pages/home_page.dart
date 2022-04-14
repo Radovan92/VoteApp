@@ -29,71 +29,101 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        
-        title: Text('Izbori 2022'),
-        centerTitle: true,
-      ),
-      body: Stack(children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/skupstina.jpg'), fit: BoxFit.cover),
-          ),
-          child: Center(child: Container(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Text('Election Serbia 2022'),
+          centerTitle: true,
+        ),
+        body: Stack(
           children: [
-            TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                filled: true,
-                hintText: 'Enter election name',
-                
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/skupstina.jpg'),
+                    fit: BoxFit.cover),
+              ),
+              child: Center(
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 350,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black38),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: TextField(
+                            controller: controller,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter election name',
+                                hintStyle: TextStyle(
+                                  color: Colors.white70,
+                                )),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: 350,
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurpleAccent,
+                          border: Border.all(color: Colors.deepPurpleAccent),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextButton(
+                          onPressed: () async {
+                            if (controller.text.isNotEmpty) {
+                              await startElection(controller.text, ethClient!)
+                                  .then(
+                                (value) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ElectionInfo(
+                                        ethClient: ethClient!,
+                                        electionName: controller.text),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print('eeeeeeeeeeeeeeee');
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Election name is required!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            }
+                          },
+                          child: Text(
+                            'Start election',
+                            style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            SizedBox(
-              height: 5,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (controller.text.isNotEmpty) {
-                  await startElection(controller.text, ethClient!).then(
-                    (value) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ElectionInfo(
-                            ethClient: ethClient!,
-                            electionName: controller.text),
-                      ),
-                    ),
-                  );
-                } else {
-                  print('eeeeeeeeeeeeeeee');
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Election name is required!'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                      });
-                }
-              },
-              child: Text('Start election'),
-            ),
           ],
-        ),
-      ),),
-        ),
-      ],)
-    );
+        ));
   }
 }
