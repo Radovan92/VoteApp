@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/services/functions.dart';
 import 'package:web3dart/web3dart.dart';
 
-class CandidateList extends StatefulWidget {
+class CanddiateList extends StatefulWidget {
   final Web3Client ethClient;
-  const CandidateList({Key? key, required this.ethClient}) : super(key: key);
+  const CanddiateList({Key? key, required this.ethClient}) : super(key: key);
 
   @override
-  State<CandidateList> createState() => _CandidateListState();
+  State<CanddiateList> createState() => _CanddiateListState();
 }
 
-class _CandidateListState extends State<CandidateList> {
+class _CanddiateListState extends State<CanddiateList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +53,7 @@ class _CandidateListState extends State<CandidateList> {
                                 );
                               }
                               return const CircularProgressIndicator();
-                            })
+                            }),
                     ],
                   );
                 }

@@ -53,12 +53,10 @@ class _ButtonsState extends State<Buttons> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 20,
-      ),
+      margin: EdgeInsets.only(top: 20, left: 100),
       child: Column(children: [
         SizedBox(
-          height: 30,
+          height: 40,
           width: 160,
           child: ElevatedButton(
             onPressed: () async {

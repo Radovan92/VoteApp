@@ -35,92 +35,94 @@ class _ElectionInfoState extends State<ElectionInfo> {
       ),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
-        child: Container(
-          height: height,
-          width: 500,
-          margin: EdgeInsets.only(left: 100, top: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Broj kandidata :',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FutureBuilder<List>(
-                    future: getCandidateNum(widget.ethClient),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Container(
+            height: height,
+            width: 500,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Broj kandidata :',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    FutureBuilder<List>(
+                      future: getCandidateNum(widget.ethClient),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text(
+                            'Loading',
+                            style: TextStyle(fontSize: 20),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data![0].toString(),
+                            style: TextStyle(fontSize: 20),
+                          );
+                        }
+                        return Text('0', style: TextStyle(fontSize: 20));
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Broj glasova :',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    FutureBuilder<List>(
+                      future: getTotalVotes(widget.ethClient),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text(
+                            'Loading',
+                            style: TextStyle(fontSize: 20),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data![0].toString(),
+                            style: TextStyle(fontSize: 20),
+                          );
+                        }
                         return Text(
-                          'Loading',
+                          '0',
                           style: TextStyle(fontSize: 20),
                         );
-                      }
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data![0].toString(),
-                          style: TextStyle(fontSize: 20),
-                        );
-                      }
-                      return Text('0', style: TextStyle(fontSize: 20));
-                    },
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Broj glasova :',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  FutureBuilder<List>(
-                    future: getTotalVotes(widget.ethClient),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text(
-                          'Loading',
-                          style: TextStyle(fontSize: 20),
-                        );
-                      }
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data![0].toString(),
-                          style: TextStyle(fontSize: 20),
-                        );
-                      }
-                      return Text(
-                        '0',
-                        style: TextStyle(fontSize: 20),
-                      );
-                    },
-                  )
-                ],
-              ),
-              Buttons(
-                ethClient: widget.ethClient,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Spisak kandidata ${widget.electionName}:',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CandidateList(ethClient: widget.ethClient),
-            ],
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Spisak kandidata ${widget.electionName}:',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CanddiateList(ethClient: widget.ethClient),
+                Buttons(ethClient: widget.ethClient),
+              ],
+            ),
           ),
         ),
       ),
