@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:vote_app/constants.dart';
 import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/pages/candidate_list.dart';
 import 'package:vote_app/services/functions.dart';
@@ -19,6 +20,46 @@ class ElectionInfo extends StatefulWidget {
 }
 
 class _ElectionInfoState extends State<ElectionInfo> {
+  late String valueText;
+
+  void showSnackBar() {
+    final snackBar = SnackBar(
+      content: Text(
+          'MINING IN PROGRESS, be patient! ( after few seconds press the reload button and you will be authorized )'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  Future<dynamic> dialog(String name) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(name),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  valueText = value;
+                });
+              },
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () async {
+                    authorizeVoter(valueText, widget.ethClient);
+                    setState(() {
+                      isAuthorized = true;
+                    });
+                    Navigator.pop(context);
+                    showSnackBar();
+                    setState(() {});
+                  },
+                  child: Text('Ok'))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -113,7 +154,9 @@ class _ElectionInfoState extends State<ElectionInfo> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    dialog('Please enter your public address');
+                  },
                   child: Text('Authorization'),
                   style: ButtonStyle(
                       backgroundColor:
