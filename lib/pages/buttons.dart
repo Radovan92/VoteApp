@@ -61,9 +61,9 @@ class _ButtonsState extends State<Buttons> {
           child: ElevatedButton(
             onPressed: () async {
               setState(() {});
-              dialog('Unesite naziv kandidata');
+              dialog('Enter the name of candidate');
             },
-            child: Text('Dodajte kandidata'),
+            child: Text('Add candidate'),
           ),
         ),
         SizedBox(height: 20),

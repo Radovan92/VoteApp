@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/services/functions.dart';
@@ -14,6 +16,14 @@ class CanddiateList extends StatefulWidget {
 }
 
 class _CanddiateListState extends State<CanddiateList> {
+  void showSnackBar() {
+    final snackBar = SnackBar(
+      content: Text(
+          'MINING IN PROGRESS, be patient! ( after few seconds press the reload button and your vote will be added )'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,6 +62,7 @@ class _CanddiateListState extends State<CanddiateList> {
                                       onPressed: isAuthorized == true
                                           ? () {
                                               vote(i, widget.ethClient);
+                                              showSnackBar();
                                             }
                                           : null,
                                       child: Text('Vote')),

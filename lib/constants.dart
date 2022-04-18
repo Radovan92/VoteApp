@@ -8,6 +8,6 @@ const String myAccountKey =
     '288ca179034b2edda14576f69460798ebc35c81f12a9ddabe42118d9556f6534';
 
 const String contractAdressSolidity =
-    '0x73adF2BfC904d67AbF3128A410A49fF62553f820';
+    '0x97d6fEad2365Cd4a06fEC8bae5e3356c73F5cBaa';
 
 bool isAuthorized = false;
