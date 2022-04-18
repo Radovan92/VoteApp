@@ -70,7 +70,7 @@ class _ElectionInfoState extends State<ElectionInfo> {
                         }
                         return Text('0', style: TextStyle(fontSize: 20));
                       },
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -112,9 +112,12 @@ class _ElectionInfoState extends State<ElectionInfo> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'Spisak kandidata ${widget.electionName}:',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Authorization'),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.green[200])),
                 ),
                 SizedBox(
                   height: 10,

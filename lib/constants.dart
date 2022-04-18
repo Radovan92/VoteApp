@@ -9,3 +9,5 @@ const String myAccountKey =
 
 const String contractAdressSolidity =
     '0x73adF2BfC904d67AbF3128A410A49fF62553f820';
+
+bool isAuthorized = false;

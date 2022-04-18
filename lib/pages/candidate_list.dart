@@ -3,6 +3,8 @@ import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/services/functions.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../constants.dart';
+
 class CanddiateList extends StatefulWidget {
   final Web3Client ethClient;
   const CanddiateList({Key? key, required this.ethClient}) : super(key: key);
@@ -15,6 +17,7 @@ class _CanddiateListState extends State<CanddiateList> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 370,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -46,9 +49,11 @@ class _CanddiateListState extends State<CanddiateList> {
                                   subtitle: Text('Votes: ' +
                                       candidatesnapshot.data![0][1].toString()),
                                   trailing: ElevatedButton(
-                                      onPressed: () {
-                                        vote(i, widget.ethClient);
-                                      },
+                                      onPressed: isAuthorized == true
+                                          ? () {
+                                              vote(i, widget.ethClient);
+                                            }
+                                          : null,
                                       child: Text('Vote')),
                                 );
                               }
