@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_app/constants.dart';
 import 'package:vote_app/pages/election_info.dart';
 import 'package:vote_app/services/functions.dart';
@@ -80,17 +81,19 @@ class _HomePageState extends State<HomePage> {
                         child: TextButton(
                           onPressed: () async {
                             if (controller.text.isNotEmpty) {
-                              await startElection(controller.text, ethClient!)
+                              await Provider.of<Functions>(context,
+                                      listen: false)
+                                  .startElection(controller.text, ethClient!)
                                   .then(
-                                (value) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ElectionInfo(
-                                        ethClient: ethClient!,
-                                        electionName: controller.text),
-                                  ),
-                                ),
-                              );
+                                    (value) => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ElectionInfo(
+                                            ethClient: ethClient!,
+                                            electionName: controller.text),
+                                      ),
+                                    ),
+                                  );
                             } else {
                               print('eeeeeeeeeeeeeeee');
                               showDialog(

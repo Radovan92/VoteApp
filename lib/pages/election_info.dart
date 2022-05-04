@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_app/constants.dart';
 import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/pages/candidate_list.dart';
@@ -46,7 +47,8 @@ class _ElectionInfoState extends State<ElectionInfo> {
             actions: [
               TextButton(
                   onPressed: () async {
-                    authorizeVoter(valueText, widget.ethClient);
+                    Provider.of<Functions>(context, listen: false)
+                        .authorizeVoter(valueText, widget.ethClient);
                     setState(() {
                       isAuthorized = true;
                     });
@@ -94,7 +96,8 @@ class _ElectionInfoState extends State<ElectionInfo> {
                       width: 10,
                     ),
                     FutureBuilder<List>(
-                      future: getCandidateNum(widget.ethClient),
+                      future: Provider.of<Functions>(context, listen: false)
+                          .getCandidateNum(widget.ethClient),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -127,7 +130,8 @@ class _ElectionInfoState extends State<ElectionInfo> {
                       width: 30,
                     ),
                     FutureBuilder<List>(
-                      future: getTotalVotes(widget.ethClient),
+                      future: Provider.of<Functions>(context, listen: false)
+                          .getTotalVotes(widget.ethClient),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_app/services/functions.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -39,7 +40,8 @@ class _ButtonsState extends State<Buttons> {
             actions: [
               TextButton(
                   onPressed: () async {
-                    addCanddiate(valueText.toString(), widget.ethClient);
+                    Provider.of<Functions>(context, listen: false)
+                        .addCanddiate(valueText.toString(), widget.ethClient);
                     Navigator.pop(context);
                     showSnackBar();
                     setState(() {});

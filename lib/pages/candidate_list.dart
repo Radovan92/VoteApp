@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vote_app/pages/buttons.dart';
 import 'package:vote_app/services/functions.dart';
 import 'package:web3dart/web3dart.dart';
@@ -33,7 +34,8 @@ class _CanddiateListState extends State<CanddiateList> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FutureBuilder<List>(
-              future: getCandidateNum(widget.ethClient),
+              future: Provider.of<Functions>(context, listen: false)
+                  .getCandidateNum(widget.ethClient),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   print('eeeeeeeeeeeej');
@@ -44,7 +46,9 @@ class _CanddiateListState extends State<CanddiateList> {
                     children: [
                       for (int i = 0; i < snapshot.data![0].toInt(); i++)
                         FutureBuilder<List>(
-                            future: candidateInfo(i, widget.ethClient),
+                            future:
+                                Provider.of<Functions>(context, listen: false)
+                                    .candidateInfo(i, widget.ethClient),
                             builder: (context, candidatesnapshot) {
                               if (candidatesnapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -61,7 +65,9 @@ class _CanddiateListState extends State<CanddiateList> {
                                   trailing: ElevatedButton(
                                       onPressed: isAuthorized == true
                                           ? () {
-                                              vote(i, widget.ethClient);
+                                              Provider.of<Functions>(context,
+                                                      listen: false)
+                                                  .vote(i, widget.ethClient);
                                               showSnackBar();
                                             }
                                           : null,
